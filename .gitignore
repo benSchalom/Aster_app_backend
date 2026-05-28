@@ -1,0 +1,59 @@
+# ========================
+# Variables d'environnement
+# ========================
+.env
+.env.local
+.env.*.local
+
+# ========================
+# Dépendances
+# ========================
+node_modules/
+
+# ========================
+# Build TypeScript
+# ========================
+dist/
+
+# ========================
+# Logs
+# ========================
+logs/
+*.log
+npm-debug.log*
+
+# ========================
+# Prisma
+# ========================
+# Le dossier migrations est commité (il documente l'historique)
+# Seul le cache local est ignoré
+prisma/.cache
+/generated/prisma
+
+
+# ========================
+# Système d'exploitation
+# ========================
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ========================
+# Éditeurs
+# ========================
+.vscode/settings.json
+.idea/
+*.swp
+*.swo
+
+# ========================
+# Tests
+# ========================
+coverage/
+
+# ========================
+# Divers
+# ========================
+*.pem
+*.key
+*.cert
