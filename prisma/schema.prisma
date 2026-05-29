@@ -11,3 +11,97 @@ generator client {
 datasource db {
   provider = "postgresql"
 }
+
+model Commercant {
+  id            String    @id @default(uuid())
+  nomCommerce   String
+  email         String    @unique
+  motDePasse    String
+  telephone     String?
+  adresse       String?
+  emailVerifie  Boolean   @default(false)
+  logo          String?
+  creeLe        DateTime  @default(now())
+
+  // Relations 
+  programmes    Programme[]
+  cartes        Carte[]
+}
+
+enum TypeProgramme {
+  points
+  gratuite
+  abonnement_seances
+  abonnement_temps
+}
+
+model Programme {
+  id            String        @id @default(uuid())
+  commercantId  String
+  nom           String
+  type          TypeProgramme
+  valeur        Int
+  recompense    String
+  actif         Boolean       @default(true)
+  creeLe        DateTime      @default(now())
+
+  // Relations
+  commercant    Commercant    @relation(fields: [commercantId], references: [id])
+  cartes        Carte[]
+  demandes      Demande[]
+}
+
+enum TypeTransaction {
+  gain
+  consommation
+  recompense
+}
+
+enum StatutDemande {
+  en_attente
+  confirmee
+  refusee
+}
+
+model Carte {
+  id              String    @id @default(uuid())
+  numeroSerie     String    @unique
+  programmeId     String
+  commercantId    String
+  clientNom       String
+  clientTelephone String
+  etat            String
+  actif           Boolean   @default(true)
+  creeLe          DateTime  @default(now())
+
+  // Relations
+  programme       Programme    @relation(fields: [programmeId], references: [id])
+  commercant      Commercant   @relation(fields: [commercantId], references: [id])
+  transactions    Transaction[]
+  demande         Demande?
+}
+
+model Transaction {
+  id       String          @id @default(uuid())
+  carteId  String
+  type     TypeTransaction
+  montant  Int?
+  date     DateTime        @default(now())
+
+  // Relation
+  carte    Carte           @relation(fields: [carteId], references: [id])
+}
+
+model Demande {
+  id              String        @id @default(uuid())
+  programmeId     String
+  clientNom       String
+  clientTelephone String
+  statut          StatutDemande @default(en_attente)
+  carteId         String?       @unique
+  creeLe          DateTime      @default(now())
+
+  // Relations
+  programme       Programme     @relation(fields: [programmeId], references: [id])
+  carte           Carte?        @relation(fields: [carteId], references: [id])
+}
