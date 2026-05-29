@@ -48,3 +48,22 @@ export const connexion = async (req: Request, res: Response) => {
         }
     }
 }
+
+/**
+ * Rafraichir le token 
+ * 1. appel le service de rafraichissement de token
+ * @param req 
+ * @param res 
+ */
+export const rafraichirToken = async (req: Request, res: Response) => {
+    try {
+        const resultat = await authService.rafraichir((req as any).commercant.id)
+        res.status(200).json(resultat)
+    } catch (error: any) {
+        if (error.status) {
+            res.status(error.status).json({ erreur: { message: error.message } })
+        } else {
+            res.status(500).json({ erreur: { message: 'Erreur serveur' } })
+        }
+    }
+}

@@ -90,3 +90,25 @@ export const connecter = async (data: { email: string; motDePasse: string }) => 
         },
     }
 }
+
+/**
+ * Rafraichir le token des commercants
+ * 1. Cherche le commercant avec son email
+ * 2. Genere un nouveau token
+ * @param commercantId
+ * @returns le token
+ */
+export const rafraichir = async (commercantId: string) => {
+    const commercant = await prisma.commercant.findUnique({ where: { id: commercantId } })
+    if (!commercant) {
+        throw { status: 401, message: 'Compte commerçant introuvable' }
+    }
+
+    const token = jwt.sign(
+        { id: commercant.id, email: commercant.email, emailVerifie: commercant.emailVerifie },
+        JWT_SECRET,
+        { expiresIn: JWT_EXPIRATION }
+    )
+
+    return { token }
+}
