@@ -22,6 +22,7 @@ app.get('/api/test-auth', authentifier, (req, res) => {
 app.get('/api/test-email-verifie', authentifier, exigerEmailVerifie, (req, res) => {
   res.json({ message: 'Email vérifié et authentifié' })
 })
+
 // ========
 
 app.listen(PORT, () => {

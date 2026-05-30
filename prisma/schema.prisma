@@ -22,6 +22,8 @@ model Commercant {
   emailVerifie  Boolean   @default(false)
   logo          String?
   creeLe        DateTime  @default(now())
+  otpCode       String?
+  otpExpiration DateTime?
 
   // Relations 
   programmes    Programme[]
