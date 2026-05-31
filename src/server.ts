@@ -2,6 +2,7 @@ import 'dotenv/config'
 import express from 'express'
 import authRoutes from './routes/authentification.routes.js'
 import { authentifier, exigerEmailVerifie } from './middleware/auth.middleware.js'
+import programmeRoutes from './routes/programme.routes.js'
 
 const app = express()
 const PORT = process.env.PORT || 3000
@@ -11,6 +12,7 @@ app.use(express.json())
 
 //Routes
 app.use('/api/authentification', authRoutes)
+app.use('/api/programmes', programmeRoutes)
 
 //Test=========
 app.get('/ping', (req, res) => {
