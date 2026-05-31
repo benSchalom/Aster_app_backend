@@ -62,5 +62,14 @@ export const confirmerVerification = async (commercantId: string, code: string) 
         { expiresIn: '7d' }
     )
 
-    return { token }
+    return { 
+        token,
+        commercant: {
+            id: commercant.id,
+            nomCommerce: commercant.nomCommerce,
+            email: commercant.email,
+            emailVerifie: true,
+            logo: commercant.logo,
+        },
+    }
 }

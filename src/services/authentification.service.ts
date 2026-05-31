@@ -51,6 +51,7 @@ export const inscrire = async (data: {
             nomCommerce: commercant.nomCommerce,
             email: commercant.email,
             emailVerifie: commercant.emailVerifie,
+            logo: commercant.logo,
         },
     }
 }
@@ -87,6 +88,7 @@ export const connecter = async (data: { email: string; motDePasse: string }) => 
             nomCommerce: commercant.nomCommerce,
             email: commercant.email,
             emailVerifie: commercant.emailVerifie,
+            logo: commercant.logo,
         },
     }
 }
