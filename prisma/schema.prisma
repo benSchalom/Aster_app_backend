@@ -20,6 +20,7 @@ model Commercant {
   telephone     String?
   adresse       String?
   emailVerifie  Boolean   @default(false)
+  nouvelEmail   String?
   logo          String?
   creeLe        DateTime  @default(now())
   otpCode       String?
@@ -106,4 +107,13 @@ model Demande {
   // Relations
   programme       Programme     @relation(fields: [programmeId], references: [id])
   carte           Carte?        @relation(fields: [carteId], references: [id])
+}
+
+model Archive {
+  id              String   @id @default(uuid())
+  commercantId    String
+  email           String
+  nomCommerce     String
+  dateSuppression DateTime @default(now())
+  motif           String
 }
