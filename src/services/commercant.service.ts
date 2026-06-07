@@ -73,7 +73,15 @@ export const changerMotDePasse = async (id: string, ancienMotDePasse: string, no
     if (!valide) throw { status: 401, message: 'Ancien mot de passe incorrect' }
 
     const hash = await bcrypt.hash(nouveauMotDePasse, 10)
-    await prisma.commercant.update({ where: { id }, data: { motDePasse: hash, tokenVersion: { increment: 1 } } })
+    const updated = await prisma.commercant.update({ where: { id }, data: { motDePasse: hash, tokenVersion: { increment: 1 } } })
+
+    // Générer un nouveau token avec le tokenVersion à jour
+    const token = jwt.sign(
+        { id: updated.id, tokenVersion: updated.tokenVersion },
+        JWT_SECRET,
+        { expiresIn: '7d' }
+    )
+    return { token }
 }
 
 /**

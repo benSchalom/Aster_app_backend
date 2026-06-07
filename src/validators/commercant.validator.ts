@@ -1,8 +1,8 @@
 import { z } from 'zod'
 
 export const modifierProfilSchema = z.object({
-    nomCommerce: z.string().min(2, 'Min 2 caractères').optional(),
-    telephone: z.string().regex(/^\+?[0-9]{10,15}$/, 'Téléphone invalide').optional(),
+    nomCommerce: z.string().min(2, 'Min 2 caracteres').optional(),
+    telephone: z.string().regex(/^\+?[0-9]{10,15}$/, 'Telephone invalide').optional(),
     adresse: z.string().min(5, 'Adresse trop courte').optional(),
 }).refine(
     data => Object.values(data).some(v => v !== undefined),
@@ -10,12 +10,12 @@ export const modifierProfilSchema = z.object({
 )
 
 export const changerMotDePasseSchema = z.object({
-    ancienMotDePasse: z.string().min(1, 'Votre ancien mot de passe requis'),
+    ancienMotDePasse: z.string().min(1, 'Ancien mot de passe requis'),
     nouveauMotDePasse: z.string()
-        .min(8, 'Minimum 8 caractères')
+        .min(8, 'Minimum 8 caracteres')
         .regex(/[A-Z]/, 'Au moins une majuscule')
         .regex(/[0-9]/, 'Au moins un chiffre')
-        .regex(/[^\w\s]/, 'Au moins un caractère spécial'),
+        .regex(/[^\w\s]/, 'Au moins un caractere special'),
 })
 
 export const changerEmailDemandeSchema = z.object({

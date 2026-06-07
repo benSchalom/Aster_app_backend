@@ -2,6 +2,7 @@ import { Router } from 'express'
 import { authentifier, exigerEmailVerifie } from '../middleware/auth.middleware.js'
 import { emailLimiter } from '../config/rateLimit.js'
 import * as commercantController from '../controllers/commercant.controller.js'
+import { uploadLogo } from '../config/upload.js'
 
 const router = Router()
 
@@ -10,6 +11,7 @@ router.post('/profil/email/demande', authentifier, exigerEmailVerifie, emailLimi
 router.post('/profil/email/confirmation', authentifier, exigerEmailVerifie, commercantController.confirmerChangementEmail)
 router.get('/profil', authentifier, exigerEmailVerifie, commercantController.consulter)
 router.patch('/profil', authentifier, exigerEmailVerifie, commercantController.modifier)
+router.post('/profil/logo', authentifier, exigerEmailVerifie, uploadLogo.single('logo'), commercantController.uploaderLogo)
 router.delete('/profil', authentifier, exigerEmailVerifie, commercantController.supprimer)
 
 export default router

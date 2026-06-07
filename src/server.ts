@@ -1,5 +1,6 @@
 import 'dotenv/config'
 import express from 'express'
+import path from 'path'
 import authRoutes from './routes/authentification.routes.js'
 import { authentifier, exigerEmailVerifie } from './middleware/auth.middleware.js'
 import programmeRoutes from './routes/programme.routes.js'
@@ -8,29 +9,30 @@ import commercantRoutes from './routes/commercant.routes.js'
 const app = express()
 const PORT = process.env.PORT || 3000
 
-//Middleware
+// Middleware
 app.use(express.json())
 
-//Routes
+// Fichiers statiques (logos)
+app.use('/uploads', express.static(path.join(process.cwd(), 'uploads')))
+
+// Routes
 app.use('/api/authentification', authRoutes)
 app.use('/api/programmes', programmeRoutes)
 app.use('/api/commercants', commercantRoutes)
 
-//Test=========
+// Test
 app.get('/ping', (req, res) => {
   res.json({ message: 'ASTER API fonctionne' })
 })
 app.get('/api/test-auth', authentifier, (req, res) => {
-  res.json({ message: 'Authentifié', commercant: (req as any).commercant })
+  res.json({ message: 'Authentifie', commercant: (req as any).commercant })
 })
 app.get('/api/test-email-verifie', authentifier, exigerEmailVerifie, (req, res) => {
-  res.json({ message: 'Email vérifié et authentifié' })
+  res.json({ message: 'Email verifie et authentifie' })
 })
 
-// ========
-
 app.listen(PORT, () => {
-  console.log(`Serveur démarré sur le port ${PORT}`)
+  console.log(`Serveur demarre sur le port ${PORT}`)
 })
 
 export default app
