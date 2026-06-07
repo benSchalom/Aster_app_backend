@@ -1,4 +1,5 @@
 import { Request, Response, NextFunction } from 'express'
+import prisma from '../config/database.js'
 import jwt from 'jsonwebtoken'
 
 const JWT_SECRET = process.env.JWT_SECRET!
@@ -13,7 +14,7 @@ const JWT_SECRET = process.env.JWT_SECRET!
  * @param next 
  * @returns 
  */
-export const authentifier = (req: Request, res: Response, next: NextFunction) => {
+export const authentifier = async(req: Request, res: Response, next: NextFunction) => {
     const header = req.headers.authorization
     if (!header || !header.startsWith('Bearer ')) {
         return res.status(401).json({ erreur: { message: 'Clés de sécurité manquante' } })
@@ -21,8 +22,19 @@ export const authentifier = (req: Request, res: Response, next: NextFunction) =>
 
     try {
         const token = header.split(' ')[1]
-        const payload = jwt.verify(token, JWT_SECRET)
-            ; (req as any).commercant = payload
+        const payload = jwt.verify(token, JWT_SECRET) as any
+        
+        const commercant = await prisma.commercant.findUnique({ where: { id: payload.id } })
+        if (!commercant || commercant.tokenVersion !== payload.tokenVersion) {
+            return res.status(401).json({ erreur: { message: 'Token invalide' } })
+        }
+
+        ;(req as any).commercant = {
+            id: commercant.id,
+            email: commercant.email,
+            emailVerifie: commercant.emailVerifie,
+            tokenVersion: commercant.tokenVersion,
+        }
         next()
     } catch {
         return res.status(401).json({ erreur: { message: 'Clés de sécurité invalide' } })

@@ -25,6 +25,7 @@ model Commercant {
   creeLe        DateTime  @default(now())
   otpCode       String?
   otpExpiration DateTime?
+  tokenVersion  Int @default(0)
 
   // Relations 
   programmes    Programme[]

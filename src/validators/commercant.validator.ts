@@ -4,7 +4,10 @@ export const modifierProfilSchema = z.object({
     nomCommerce: z.string().min(2, 'Min 2 caractères').optional(),
     telephone: z.string().regex(/^\+?[0-9]{10,15}$/, 'Téléphone invalide').optional(),
     adresse: z.string().min(5, 'Adresse trop courte').optional(),
-})
+}).refine(
+    data => Object.values(data).some(v => v !== undefined),
+    { message: 'Au moins un champ est requis' }
+)
 
 export const changerMotDePasseSchema = z.object({
     ancienMotDePasse: z.string().min(1, 'Votre ancien mot de passe requis'),

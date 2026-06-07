@@ -28,7 +28,7 @@ export const creer = async (req: Request, res: Response) => {
  */
 export const lister = async (req: Request, res: Response) => {
     try {
-        const inclureInactifs = req.query.tous === 'true'
+        const inclureInactifs = req.query.inclureInactifs === 'true'
         const programmes = await programmeService.lister((req as any).commercant.id, inclureInactifs)
         res.status(200).json(programmes)
     } catch (error: any) {

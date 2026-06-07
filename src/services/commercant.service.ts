@@ -73,7 +73,7 @@ export const changerMotDePasse = async (id: string, ancienMotDePasse: string, no
     if (!valide) throw { status: 401, message: 'Ancien mot de passe incorrect' }
 
     const hash = await bcrypt.hash(nouveauMotDePasse, 10)
-    await prisma.commercant.update({ where: { id }, data: { motDePasse: hash } })
+    await prisma.commercant.update({ where: { id }, data: { motDePasse: hash, tokenVersion: { increment: 1 } } })
 }
 
 /**
@@ -120,11 +120,6 @@ export const confirmerChangementEmail = async (id: string, code: string) => {
     if (commercant.otpExpiration < new Date()) throw { status: 422, message: 'Code expiré' }
     if (commercant.otpCode !== code) throw { status: 422, message: 'Code invalide' }
 
-    // On a besoin de stocker le nouvel email quelque part
-    // Pour simplifier, on le stocke dans otpCode sous format "code:email"
-    // Mais c'est mieux de le stocker proprement — pour le MVP on va chercher
-    // le nouvel email depuis le token de demande
-
     const updated = await prisma.commercant.update({
         where: { id },
         data: {
@@ -135,7 +130,7 @@ export const confirmerChangementEmail = async (id: string, code: string) => {
         },
     })
 
-    return { email: commercant.email }
+    return { email: updated.email }
 }
 
 /**
@@ -173,6 +168,7 @@ export const supprimerCompte = async (id: string, motDePasse: string) => {
             otpCode: null,
             otpExpiration: null,
             nouvelEmail: null,
+            tokenVersion: { increment: 1 },
         },
     })
 }

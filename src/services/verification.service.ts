@@ -57,7 +57,7 @@ export const confirmerVerification = async (commercantId: string, code: string) 
     })
 
     const token = jwt.sign(
-        { id: commercant.id, email: commercant.email, emailVerifie: true },
+        { id: commercant.id, email: commercant.email, emailVerifie: commercant.emailVerifie, tokenVersion: commercant.tokenVersion },
         JWT_SECRET,
         { expiresIn: '7d' }
     )

@@ -39,7 +39,7 @@ export const inscrire = async (data: {
     })
 
     const token = jwt.sign(
-        { id: commercant.id, email: commercant.email, emailVerifie: commercant.emailVerifie },
+        { id: commercant.id, email: commercant.email, emailVerifie: commercant.emailVerifie, tokenVersion: commercant.tokenVersion },
         JWT_SECRET,
         { expiresIn: JWT_EXPIRATION }
     )
@@ -75,8 +75,14 @@ export const connecter = async (data: { email: string; motDePasse: string }) => 
         throw { status: 401, message: 'Identifiants incorrects' }
     }
 
+    await prisma.commercant.update({
+        where: { id: commercant.id },
+        data: { tokenVersion: { increment: 1 } },
+    })
+    const updatedCommercant = await prisma.commercant.findUnique({ where: { id: commercant.id } })
+
     const token = jwt.sign(
-        { id: commercant.id, email: commercant.email, emailVerifie: commercant.emailVerifie },
+        { id:updatedCommercant!.id, email: updatedCommercant!.email, emailVerifie: updatedCommercant!.emailVerifie, tokenVersion: updatedCommercant!.tokenVersion },
         JWT_SECRET,
         { expiresIn: JWT_EXPIRATION }
     )
@@ -107,9 +113,9 @@ export const rafraichir = async (commercantId: string) => {
     }
 
     const token = jwt.sign(
-        { id: commercant.id, email: commercant.email, emailVerifie: commercant.emailVerifie },
+        { id: commercant.id, email: commercant.email, emailVerifie: commercant.emailVerifie, tokenVersion: commercant.tokenVersion },
         JWT_SECRET,
-        { expiresIn: JWT_EXPIRATION }
+        { expiresIn: '7d' }
     )
 
     return { token }
