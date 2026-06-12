@@ -1,10 +1,10 @@
 import 'dotenv/config'
 import express from 'express'
 import path from 'path'
-import authRoutes from './routes/authentification.routes.js'
-import { authentifier, exigerEmailVerifie } from './middleware/auth.middleware.js'
-import programmeRoutes from './routes/programme.routes.js'
-import commercantRoutes from './routes/commercant.routes.js'
+import authRoutes from './src/routes/authentification.routes.js'
+import { authentifier, exigerEmailVerifie } from './src/middleware/auth.middleware.js'
+import programmeRoutes from './src/routes/programme.routes.js'
+import commercantRoutes from './src/routes/commercant.routes.js'
 
 const app = express()
 const PORT = process.env.PORT || 3000
