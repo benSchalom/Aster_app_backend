@@ -45,7 +45,8 @@ model Programme {
   nom           String
   type          TypeProgramme
   valeur        Int
-  recompense    String
+  pas           Int           @default(1)
+  recompense    String?
   actif         Boolean       @default(true)
   creeLe        DateTime      @default(now())
 
