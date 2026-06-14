@@ -5,6 +5,13 @@ import * as demandeService from '../services/demande.service.js'
 
 const BASE_URL = (): string => process.env.BASE_URL || `http://localhost:${process.env.PORT || 3000}`
 
+const escapeHtml = (str: string): string =>
+    str.replace(/&/g, '&amp;')
+       .replace(/</g, '&lt;')
+       .replace(/>/g, '&gt;')
+       .replace(/"/g, '&quot;')
+       .replace(/'/g, '&#x27;')
+
 const typeLabelFr = (type: string): string => {
     switch (type) {
         case 'points': return 'Carte a points'
@@ -93,7 +100,7 @@ export const formulaireEnrollment = async (req: Request, res: Response) => {
     }
 
     const erreurHtml = erreur
-        ? `<div class="erreur">${decodeURIComponent(erreur)}</div>`
+        ? `<div class="erreur">${escapeHtml(decodeURIComponent(erreur))}</div>`
         : ''
 
     res.send(`
@@ -101,15 +108,15 @@ export const formulaireEnrollment = async (req: Request, res: Response) => {
         <head>
             <meta charset="UTF-8">
             <meta name="viewport" content="width=device-width, initial-scale=1">
-            <title>Rejoindre ${programme.nom}</title>
+            <title>Rejoindre ${escapeHtml(programme.nom)}</title>
             <style>${css}</style>
         </head>
         <body>
             <div class="card">
                 <div class="logo">A</div>
-                <h1>${programme.nom}</h1>
+                <h1>${escapeHtml(programme.nom)}</h1>
                 <div class="centre"><span class="badge">${typeLabelFr(programme.type)}</span></div>
-                <p class="marchand">${programme.commercant.nomCommerce}</p>
+                <p class="marchand">${escapeHtml(programme.commercant.nomCommerce)}</p>
                 ${erreurHtml}
                 <form method="POST" action="/p/${programmeId}">
                     <label for="clientNom">Votre nom</label>
@@ -286,10 +293,10 @@ export const pageCarte = async (req: Request, res: Response) => {
         <body>
             <div class="card centre">
                 <div class="logo">A</div>
-                <h1>${p.nom}</h1>
+                <h1>${escapeHtml(p.nom)}</h1>
                 <div><span class="badge">${typeLabelFr(p.type)}</span></div>
-                <p class="etat-valeur">${labelEtat}</p>
-                <p class="serie">${carte.numeroSerie}</p>
+                <p class="etat-valeur">${escapeHtml(labelEtat)}</p>
+                <p class="serie">${escapeHtml(carte.numeroSerie)}</p>
                 <p class="qr-label">Montrez ce code au commercant</p>
                 <div id="qr"></div>
             </div>
@@ -297,7 +304,7 @@ export const pageCarte = async (req: Request, res: Response) => {
             <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
             <script>
                 new QRCode(document.getElementById('qr'), {
-                    text: '${carte.numeroSerie}',
+                    text: '${escapeHtml(carte.numeroSerie)}',
                     width: 160, height: 160,
                     colorDark: '#111', colorLight: '#fff',
                     correctLevel: QRCode.CorrectLevel.M,

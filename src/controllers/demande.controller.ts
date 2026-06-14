@@ -8,7 +8,7 @@ export const lister = async (req: Request, res: Response) => {
         const demandes = await demandeService.lister(commercantId, statut as string | undefined)
         res.json(demandes)
     } catch (e: any) {
-        res.status(e.status || 500).json({ message: e.message || 'Erreur serveur' })
+        res.status(e.status || 500).json({ erreur: { message: e.message || 'Erreur serveur' } })
     }
 }
 
@@ -20,7 +20,7 @@ export const confirmer = async (req: Request, res: Response) => {
         const baseUrl = process.env.BASE_URL || `http://localhost:${process.env.PORT || 3000}`
         res.json({ carte, carteUrl: `${baseUrl}/carte/${carte.id}` })
     } catch (e: any) {
-        res.status(e.status || 500).json({ message: e.message || 'Erreur serveur' })
+        res.status(e.status || 500).json({ erreur: { message: e.message || 'Erreur serveur' } })
     }
 }
 
@@ -31,6 +31,6 @@ export const refuser = async (req: Request, res: Response) => {
         await demandeService.refuser(id, commercantId)
         res.json({ message: 'Demande refusee' })
     } catch (e: any) {
-        res.status(e.status || 500).json({ message: e.message || 'Erreur serveur' })
+        res.status(e.status || 500).json({ erreur: { message: e.message || 'Erreur serveur' } })
     }
 }

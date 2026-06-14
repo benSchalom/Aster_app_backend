@@ -3,7 +3,7 @@ import jwt from 'jsonwebtoken'
 import prisma from '../config/database.js'
 
 const JWT_SECRET = process.env.JWT_SECRET!
-const JWT_EXPIRATION = '7d'
+const JWT_EXPIRATION = process.env.JWT_EXPIRATION || '7d'
 
 /**
  * Inscription d'un commercant
@@ -115,7 +115,7 @@ export const rafraichir = async (commercantId: string) => {
     const token = jwt.sign(
         { id: commercant.id, email: commercant.email, emailVerifie: commercant.emailVerifie, tokenVersion: commercant.tokenVersion },
         JWT_SECRET,
-        { expiresIn: '7d' }
+        { expiresIn: JWT_EXPIRATION }
     )
 
     return { token }

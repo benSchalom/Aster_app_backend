@@ -1,5 +1,7 @@
 import 'dotenv/config'
 import express, { Request, Response, NextFunction } from 'express'
+import cors from 'cors'
+import helmet from 'helmet'
 import path from 'path'
 import authRoutes from './src/routes/authentification.routes.js'
 import { authentifier, exigerEmailVerifie } from './src/middleware/auth.middleware.js'
@@ -8,9 +10,22 @@ import commercantRoutes from './src/routes/commercant.routes.js'
 import carteRoutes from './src/routes/carte.routes.js'
 import demandeRoutes from './src/routes/demande.routes.js'
 import publicRoutes from './src/routes/public.routes.js'
+import statistiquesRoutes from './src/routes/statistiques.routes.js'
 
 const app = express()
 const PORT = process.env.PORT || 3000
+const IS_DEV = process.env.NODE_ENV !== 'production'
+
+// Sécurité : en-têtes HTTP
+// En dev, on désactive contentSecurityPolicy pour ne pas bloquer les pages HTML publiques locales
+app.use(helmet({ contentSecurityPolicy: IS_DEV ? false : undefined }))
+
+// CORS : en dev on accepte tout, en prod on restreint à CORS_ORIGIN
+app.use(cors({
+    origin: IS_DEV ? '*' : (process.env.CORS_ORIGIN || false),
+    methods: ['GET', 'POST', 'PATCH', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
+}))
 
 // Middleware
 app.use(express.json())
@@ -25,20 +40,10 @@ app.use('/api/programmes', programmeRoutes)
 app.use('/api/commercants', commercantRoutes)
 app.use('/api/cartes', carteRoutes)
 app.use('/api/demandes', demandeRoutes)
+app.use('/api/statistiques', statistiquesRoutes)
 
 // Routes publiques (pages web pour les clients)
 app.use(publicRoutes)
-
-// Test
-app.get('/ping', (req, res) => {
-    res.json({ message: 'ASTER API fonctionne' })
-})
-app.get('/api/test-auth', authentifier, (req, res) => {
-    res.json({ message: 'Authentifie', commercant: (req as any).commercant })
-})
-app.get('/api/test-email-verifie', authentifier, exigerEmailVerifie, (req, res) => {
-    res.json({ message: 'Email verifie et authentifie' })
-})
 
 // Intercepter les erreurs de parsing JSON (corps vide ou malformé)
 app.use((err: any, req: Request, res: Response, next: NextFunction) => {

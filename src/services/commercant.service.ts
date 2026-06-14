@@ -4,6 +4,7 @@ import jwt from 'jsonwebtoken'
 import { envoyerOTP } from './email.service.js'
 
 const JWT_SECRET = process.env.JWT_SECRET!
+const JWT_EXPIRATION = process.env.JWT_EXPIRATION || '7d'
 
 /**
  * Generer un code aleatoire
@@ -79,7 +80,7 @@ export const changerMotDePasse = async (id: string, ancienMotDePasse: string, no
     const token = jwt.sign(
         { id: updated.id, tokenVersion: updated.tokenVersion },
         JWT_SECRET,
-        { expiresIn: '7d' }
+        { expiresIn: JWT_EXPIRATION }
     )
     return { token }
 }

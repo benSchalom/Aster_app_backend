@@ -4,6 +4,7 @@ import jwt from 'jsonwebtoken'
 import { envoyerOTP } from './email.service.js'
 
 const JWT_SECRET = process.env.JWT_SECRET!
+const JWT_EXPIRATION = process.env.JWT_EXPIRATION || '7d'
 
 /**
  * Generer le code de vérification
@@ -59,7 +60,7 @@ export const confirmerVerification = async (commercantId: string, code: string) 
     const token = jwt.sign(
         { id: commercant.id, email: commercant.email, emailVerifie: commercant.emailVerifie, tokenVersion: commercant.tokenVersion },
         JWT_SECRET,
-        { expiresIn: '7d' }
+        { expiresIn: JWT_EXPIRATION }
     )
 
     return { 

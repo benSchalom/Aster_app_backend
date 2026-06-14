@@ -65,7 +65,7 @@ export const creer = async (
  */
 export const lister = async (
     commercantId: string,
-    filtres: { recherche?: string; telephone?: string; programmeId?: string }
+    filtres: { recherche?: string; programmeId?: string }
 ) => {
     return prisma.carte.findMany({
         where: {
@@ -77,9 +77,6 @@ export const lister = async (
                     { clientTelephone: { contains: filtres.recherche } },
                     { numeroSerie: { contains: filtres.recherche, mode: 'insensitive' } },
                 ],
-            }),
-            ...(filtres.telephone && {
-                clientTelephone: { contains: filtres.telephone },
             }),
             ...(filtres.programmeId && {
                 programmeId: filtres.programmeId,

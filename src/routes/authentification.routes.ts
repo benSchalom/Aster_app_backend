@@ -3,13 +3,13 @@ import { inscription, connexion, rafraichirToken } from '../controllers/authenti
 import { authentifier } from '../middleware/auth.middleware.js'
 import { demande, confirmation } from '../controllers/verification.controller.js'
 import { demande as mdpDemande, confirmation as mdpConfirmation } from '../controllers/motdepasse.controller.js'
-import { emailLimiter } from '../config/rateLimit.js'
+import { emailLimiter, authLimiter } from '../config/rateLimit.js'
 
 const router = Router()
 
 //Authentification
-router.post('/inscription', inscription)
-router.post('/connexion', connexion)
+router.post('/inscription', authLimiter, inscription)
+router.post('/connexion', authLimiter, connexion)
 router.post('/rafraichir', authentifier, rafraichirToken)
 //Verification de l'email
 router.post('/verification-email/demande', authentifier, emailLimiter, demande)

@@ -19,7 +19,6 @@ export const lister = async (req: Request, res: Response) => {
     try {
         const filtres = {
             recherche: req.query.recherche as string | undefined,
-            telephone: req.query.telephone as string | undefined,
             programmeId: req.query.programmeId as string | undefined,
         }
         const cartes = await carteService.lister((req as any).commercant.id, filtres)
