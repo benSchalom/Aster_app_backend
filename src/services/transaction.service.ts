@@ -1,4 +1,5 @@
 import prisma from '../config/database.js'
+import { mettreAJourWallet } from './wallet.service.js'
 
 /**
  * Calcule le nouvel etat apres une transaction
@@ -125,6 +126,16 @@ export const enregistrer = async (
             data: { etat: nouvelEtat },
         }),
     ])
+
+    // Mise à jour Google Wallet en arrière-plan (fire-and-forget)
+    // Si le wallet échoue, la transaction BDD reste valide
+    mettreAJourWallet({
+        id: carte.id,
+        etat: nouvelEtat,
+        programme: carte.programme,
+    }).catch((e: Error) =>
+        console.error(`[wallet] Mise a jour wallet echouee pour carte ${carte.id}:`, e.message)
+    )
 
     return { transaction, nouvelEtat }
 }

@@ -16,6 +16,9 @@ const app = express()
 const PORT = process.env.PORT || 3000
 const IS_DEV = process.env.NODE_ENV !== 'production'
 
+// Nécessaire quand le backend est derrière ngrok ou un reverse proxy (X-Forwarded-For)
+app.set('trust proxy', 1)
+
 // Sécurité : en-têtes HTTP
 // En dev, on désactive contentSecurityPolicy pour ne pas bloquer les pages HTML publiques locales
 app.use(helmet({ contentSecurityPolicy: IS_DEV ? false : undefined }))
@@ -26,6 +29,14 @@ app.use(cors({
     methods: ['GET', 'POST', 'PATCH', 'DELETE', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization'],
 }))
+
+// Bypass interstitiel ngrok (dev uniquement)
+if (IS_DEV) {
+    app.use((_req: Request, res: Response, next: NextFunction) => {
+        res.setHeader('ngrok-skip-browser-warning', '1')
+        next()
+    })
+}
 
 // Middleware
 app.use(express.json())

@@ -57,3 +57,5 @@ coverage/
 *.pem
 *.key
 *.cert
+# Credentials Google Wallet (ne jamais commiter)
+google-credentials.json

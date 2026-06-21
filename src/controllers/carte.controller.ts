@@ -2,6 +2,7 @@ import { Request, Response } from 'express'
 import { ZodError } from 'zod'
 import { creerCarteSchema } from '../validators/carte.validator.js'
 import * as carteService from '../services/carte.service.js'
+import { genererLienWallet } from '../services/wallet.service.js'
 
 export const creer = async (req: Request, res: Response) => {
     try {
@@ -48,6 +49,18 @@ export const trouverParNumeroSerie = async (req: Request, res: Response) => {
     } catch (error: any) {
         const status = error.status || 500
         res.status(status).json({ erreur: { message: error.message || 'Carte introuvable' } })
+    }
+}
+
+export const obtenirLienWallet = async (req: Request, res: Response) => {
+    try {
+        const carte = await carteService.obtenir((req as any).commercant.id, req.params.id)
+        if (!carte) return res.status(404).json({ erreur: { message: 'Carte introuvable' } })
+        const lien = await genererLienWallet(carte as any)
+        res.json({ lienAjout: lien })
+    } catch (error: any) {
+        const status = error.status || 500
+        res.status(status).json({ erreur: { message: error.message || 'Erreur generation lien wallet' } })
     }
 }
 

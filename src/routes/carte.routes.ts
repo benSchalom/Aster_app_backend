@@ -10,6 +10,7 @@ router.post('/', authentifier, exigerEmailVerifie, carteController.creer)
 router.get('/', authentifier, exigerEmailVerifie, carteController.lister)
 router.get('/scan/:numeroSerie', authentifier, exigerEmailVerifie, carteController.trouverParNumeroSerie)
 router.get('/:id', authentifier, exigerEmailVerifie, carteController.obtenir)
+router.get('/:id/wallet/google', authentifier, exigerEmailVerifie, carteController.obtenirLienWallet)
 router.delete('/:id', authentifier, exigerEmailVerifie, carteController.supprimer)
 
 // Routes transactions
