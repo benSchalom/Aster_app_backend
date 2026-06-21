@@ -39,6 +39,7 @@ export const connexion = async (req: Request, res: Response) => {
         const resultat = await authService.connecter(data)
         res.status(200).json(resultat)
     } catch (error: any) {
+        console.log(error)
         if (error.name === 'ZodError') {
             res.status(422).json({ erreur: { message: error.issues[0].message } })
         } else if (error.status) {

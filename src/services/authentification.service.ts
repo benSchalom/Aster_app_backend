@@ -79,6 +79,7 @@ export const connecter = async (data: { email: string; motDePasse: string }) => 
         where: { id: commercant.id },
         data: { tokenVersion: { increment: 1 } },
     })
+
     const updatedCommercant = await prisma.commercant.findUnique({ where: { id: commercant.id } })
 
     const token = jwt.sign(

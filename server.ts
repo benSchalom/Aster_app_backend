@@ -64,7 +64,7 @@ app.use((err: any, req: Request, res: Response, next: NextFunction) => {
     next(err)
 })
 
-app.listen(PORT, () => {
+app.listen(Number(PORT), '0.0.0.0', () => {
     console.log(`Serveur demarre sur le port ${PORT}`)
 })
 
