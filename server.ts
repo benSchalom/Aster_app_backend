@@ -21,7 +21,17 @@ app.set('trust proxy', 1)
 
 // Sécurité : en-têtes HTTP
 // En dev, on désactive contentSecurityPolicy pour ne pas bloquer les pages HTML publiques locales
-app.use(helmet({ contentSecurityPolicy: IS_DEV ? false : undefined }))
+app.use(helmet({
+    contentSecurityPolicy: IS_DEV ? false : {
+        directives: {
+            defaultSrc: ["'self'"],
+            scriptSrc: ["'self'", "'unsafe-inline'", "https://cdnjs.cloudflare.com"],
+            scriptSrcAttr: ["'unsafe-inline'"],
+            styleSrc: ["'self'", "'unsafe-inline'"],
+            imgSrc: ["'self'", "data:", "https:"],
+        }
+    }
+}))
 
 // CORS : en dev on accepte tout, en prod on restreint à CORS_ORIGIN
 app.use(cors({
