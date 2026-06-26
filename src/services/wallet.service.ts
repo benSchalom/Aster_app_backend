@@ -62,10 +62,8 @@ export const genererLienWallet = async (carte: {
     const classId = `${ISSUER_ID}.prog_${carte.programme.id.replace(/-/g, '_')}`
     const objectId = `${ISSUER_ID}.carte_${carte.id.replace(/-/g, '_')}`
 
-    // Logo : seulement si le commerçant en a un (Google rejette les URLs inaccessibles)
-    const logoUri = carte.commercant.logo
-        ? `${BASE_URL}/uploads/${carte.commercant.logo.replace(/^\/?(uploads\/)?/, '')}`
-        : null
+    // Logo : URL Cloudinary stockee dans la BD (persistante, pas ephemere)
+    const logoUri = carte.commercant.logo ?? null
 
     const programLogo = logoUri ? {
         sourceUri: { uri: logoUri },
@@ -80,7 +78,7 @@ export const genererLienWallet = async (carte: {
         issuerName: carte.commercant.nomCommerce,
         programName: carte.programme.nom,
         reviewStatus: 'UNDER_REVIEW',
-        hexBackgroundColor: '#000000',
+        hexBackgroundColor: '#3B9EE8',
         countryCode: 'CA',
     }
     if (programLogo) loyaltyClass.programLogo = programLogo

@@ -1,0 +1,16 @@
+{
+    "formatVersion": 1,
+    "passTypeIdentifier": "pass.app.joinaster.loyalty",
+    "teamIdentifier": "J7HS896TZX",
+    "organizationName": "Aster",
+    "description": "Carte de fidelite",
+    "backgroundColor": "rgb(59, 158, 232)",
+    "foregroundColor": "rgb(255, 255, 255)",
+    "labelColor": "rgb(200, 233, 252)",
+    "storeCard": {
+        "primaryFields": [],
+        "secondaryFields": [],
+        "auxiliaryFields": [],
+        "backFields": []
+    }
+}

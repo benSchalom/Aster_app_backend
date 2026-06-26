@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Aster: Mentions légales / Legal notices</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #f5f5f5; color: #111; }
+
+  header { background: #fff; border-bottom: 1px solid #eee; padding: 20px 24px; display: flex; align-items: center; justify-content: space-between; }
+  .logo-header { font-size: 22px; font-weight: 800; color: #3B9EE8; letter-spacing: -0.5px; }
+  .lang-toggle { display: flex; gap: 8px; }
+  .lang-btn { padding: 6px 14px; border-radius: 20px; border: 1.5px solid #3B9EE8; background: #fff; color: #3B9EE8; font-size: 13px; font-weight: 600; cursor: pointer; }
+  .lang-btn.active { background: #3B9EE8; color: #fff; }
+
+  .tabs { background: #fff; border-bottom: 1px solid #eee; display: flex; overflow-x: auto; padding: 0 24px; gap: 0; }
+  .tab { padding: 14px 20px; font-size: 14px; font-weight: 600; color: #888; cursor: pointer; border-bottom: 2px solid transparent; white-space: nowrap; }
+  .tab.active { color: #3B9EE8; border-bottom-color: #3B9EE8; }
+
+  .container { max-width: 800px; margin: 0 auto; padding: 32px 24px 64px; }
+  .section { display: none; }
+  .section.active { display: block; }
+
+  h1 { font-size: 26px; font-weight: 800; margin-bottom: 8px; color: #111; }
+  .update-date { font-size: 13px; color: #888; margin-bottom: 32px; }
+  h2 { font-size: 17px; font-weight: 700; margin: 28px 0 10px; color: #111; }
+  p { font-size: 15px; line-height: 1.7; color: #333; margin-bottom: 12px; }
+  ul { margin: 0 0 12px 20px; }
+  li { font-size: 15px; line-height: 1.7; color: #333; margin-bottom: 4px; }
+  a { color: #3B9EE8; text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  .highlight { background: #EFF6FF; border-left: 3px solid #3B9EE8; padding: 12px 16px; border-radius: 0 8px 8px 0; margin: 16px 0; }
+  .highlight p { margin: 0; }
+  table { width: 100%; border-collapse: collapse; margin: 16px 0; }
+  th { background: #f0f0f0; padding: 10px 12px; text-align: left; font-size: 13px; font-weight: 700; }
+  td { padding: 10px 12px; font-size: 14px; border-bottom: 1px solid #eee; vertical-align: top; }
+  footer { text-align: center; padding: 24px; font-size: 12px; color: #bbb; }
+</style>
+</head>
+<body>
+
+<header>
+  <span class="logo-header">ASTER</span>
+  <div class="lang-toggle">
+    <button class="lang-btn active" onclick="setLang('fr')">FR</button>
+    <button class="lang-btn" onclick="setLang('en')">EN</button>
+  </div>
+</header>
+
+<!-- ===== TABS ===== -->
+<div class="tabs" id="tabs-fr">
+  <div class="tab active" onclick="setTab('privacy','fr')">Confidentialité</div>
+  <div class="tab" onclick="setTab('terms','fr')">Conditions d'utilisation</div>
+  <div class="tab" onclick="setTab('cookies','fr')">Témoins</div>
+</div>
+<div class="tabs" id="tabs-en" style="display:none">
+  <div class="tab active" onclick="setTab('privacy','en')">Privacy Policy</div>
+  <div class="tab" onclick="setTab('terms','en')">Terms of Use</div>
+  <div class="tab" onclick="setTab('cookies','en')">Cookie Policy</div>
+</div>
+
+<div class="container">
+
+<!-- ==================== FRENCH ==================== -->
+
+<!-- FR: Confidentialité -->
+<div class="section active" id="fr-privacy">
+  <h1>Politique de confidentialité</h1>
+  <p class="update-date">Dernière mise à jour : 25 juin 2026</p>
+
+  <div class="highlight"><p>Aster est un service de gestion de cartes de fidélité numérique. Votre vie privée est importante pour nous. Cette politique explique clairement quelles données nous collectons, pourquoi, et comment nous les protégeons.</p></div>
+
+  <h2>1. Qui sommes-nous ?</h2>
+  <p>Aster est un service exploité par un opérateur individuel. Pour toute question concernant vos données personnelles, contactez-nous à <a href="mailto:support@joinaster.app">support@joinaster.app</a>.</p>
+
+  <h2>2. Données collectées</h2>
+  <p><strong>Commerçants (compte professionnel) :</strong></p>
+  <ul>
+    <li>Nom du commerce, adresse et numéro de téléphone</li>
+    <li>Adresse courriel et mot de passe (chiffré)</li>
+    <li>Logo du commerce (hébergé sur Cloudinary)</li>
+  </ul>
+  <p><strong>Clients (utilisateurs des cartes) :</strong></p>
+  <ul>
+    <li>Nom et préménom</li>
+    <li>Numéro de téléphone</li>
+    <li>Données de fidélité (points, tampons, statut d'abonnement)</li>
+  </ul>
+  <p>Nous ne collectons <strong>pas</strong> : informations de paiement, localisation précise, identifiants d'appareils, données biométriques.</p>
+
+  <h2>3. Finalités du traitement</h2>
+  <ul>
+    <li>Créer et gérer les programmes de fidélité</li>
+    <li>Permettre aux clients de suivre leurs points et récompenses</li>
+    <li>Envoyer des courriels transactionnels (confirmation d'inscription, vérification)</li>
+    <li>Générer des passes pour Apple Wallet et Google Wallet</li>
+    <li>Améliorer et sécuriser le service</li>
+  </ul>
+
+  <h2>4. Hébergement et localisation des données</h2>
+  <div class="highlight"><p>Conformément à la <strong>Loi 25 du Québec</strong>, vos données sont hébergées au <strong>Canada</strong> :</p></div>
+  <table>
+    <tr><th>Fournisseur</th><th>Rôle</th><th>Pays</th></tr>
+    <tr><td>Fly.io (Toronto)</td><td>Hébergement du serveur applicatif</td><td>Canada</td></tr>
+    <tr><td>Supabase (Toronto)</td><td>Base de données</td><td>Canada</td></tr>
+    <tr><td>Cloudinary</td><td>Stockage des logos</td><td>États-Unis</td></tr>
+    <tr><td>Resend Inc.</td><td>Envoi de courriels transactionnels</td><td>États-Unis</td></tr>
+    <tr><td>Google LLC</td><td>Google Wallet (optionnel)</td><td>États-Unis</td></tr>
+    <tr><td>Apple Inc.</td><td>Apple Wallet (optionnel)</td><td>États-Unis</td></tr>
+  </table>
+  <p>Les transferts hors Canada (Cloudinary, Resend, Wallet) sont encadrés par des clauses contractuelles appropriées et limités aux données strictement nécessaires.</p>
+
+  <h2>5. Durée de conservation</h2>
+  <p>Les données des commerçants sont conservées tant que le compte est actif. Les données des clients sont conservées tant que leur carte de fidélité est active. Sur demande, toute donnée peut être supprimée dans un délai de 30 jours.</p>
+
+  <h2>6. Vos droits (Loi 25 et LPRPDE)</h2>
+  <p>Vous avez le droit de :</p>
+  <ul>
+    <li><strong>Accéder</strong> à vos données personnelles</li>
+    <li><strong>Rectifier</strong> des informations inexactes</li>
+    <li><strong>Supprimer</strong> votre compte et vos données</li>
+    <li><strong>Retirer votre consentement</strong> à tout moment</li>
+    <li><strong>Porter plainte</strong> auprès de la Commission d'accès à l'information du Québec</li>
+  </ul>
+  <p>Pour exercer ces droits, écrivez-nous à <a href="mailto:support@joinaster.app">support@joinaster.app</a>.</p>
+
+  <h2>7. Sécurité</h2>
+  <p>Vos données sont protégées par chiffrement en transit (HTTPS/TLS) et au repos. Les mots de passe sont chiffrés de manière irréversible (bcrypt). Nous n'accédons jamais à vos mots de passe en clair.</p>
+
+  <h2>8. Publicité et vente de données</h2>
+  <p>Aster ne diffuse <strong>aucune publicité</strong> et ne vend <strong>jamais</strong> vos données à des tiers.</p>
+
+  <h2>9. Modifications</h2>
+  <p>Toute modification importante sera communiquée par courriel aux commerçants. La date de mise à jour en haut de cette page indique la version en vigueur.</p>
+
+  <h2>10. Contact</h2>
+  <p><a href="mailto:support@joinaster.app">support@joinaster.app</a></p>
+</div>
+
+<!-- FR: Conditions d'utilisation -->
+<div class="section" id="fr-terms">
+  <h1>Conditions d'utilisation</h1>
+  <p class="update-date">Dernière mise à jour : 25 juin 2026</p>
+
+  <div class="highlight"><p>En utilisant Aster, vous acceptez ces conditions. Lisez-les attentivement elles sont écrites en langage clair et sans jargon inutile.</p></div>
+
+  <h2>1. Le service</h2>
+  <p>Aster est une application qui permet aux commerçants de créer et gérer des programmes de fidélité numériques, et à leurs clients d'accumuler et de consulter leurs récompenses via une carte numérique.</p>
+
+  <h2>2. Comptes commerçants</h2>
+  <ul>
+    <li>Vous devez fournir des informations exactes lors de l'inscription.</li>
+    <li>Vous êtes responsable de la confidentialité de votre mot de passe.</li>
+    <li>Un seul compte par commerce est autorisé.</li>
+    <li>Vous êtes responsable de toutes les actions effectuées depuis votre compte.</li>
+  </ul>
+
+  <h2>3. Clients (sans compte)</h2>
+  <p>Les clients n'ont pas besoin de créer un compte. En soumettant leur nom et numéro de téléphone pour rejoindre un programme, ils acceptent que ces informations soient utilisées uniquement dans le cadre de ce programme de fidélité.</p>
+
+  <h2>4. Utilisations interdites</h2>
+  <p>Il est interdit de :</p>
+  <ul>
+    <li>Utiliser le service à des fins frauduleuses ou illégales</li>
+    <li>Tenter d'accéder aux données d'autres utilisateurs</li>
+    <li>Automatiser l'utilisation du service sans autorisation écrite</li>
+    <li>Publier du contenu offensant, trompeur ou qui viole des droits de tiers</li>
+    <li>Revendre ou redistribuer le service</li>
+  </ul>
+
+  <h2>5. Propriété intellectuelle</h2>
+  <p>Le nom, le logo et le design d'Aster sont la propriété de l'opérateur du service. Les commerçants conservent la propriété de leur contenu (logos, noms de programmes).</p>
+
+  <h2>6. Disponibilité du service</h2>
+  <p>Nous faisons notre possible pour maintenir le service disponible en permanence, mais nous ne garantissons pas une disponibilité de 100 %. Des interruptions ponctuelles peuvent survenir pour maintenance ou raisons techniques.</p>
+
+  <h2>7. Limitation de responsabilité</h2>
+  <p>Aster ne peut être tenu responsable des pertes indirectes ou consécutives liées à l'utilisation ou à l'impossibilité d'utiliser le service. Notre responsabilité totale est limitée au montant payé pour le service au cours des 3 derniers mois.</p>
+
+  <h2>8. Résiliation</h2>
+  <p>Vous pouvez fermer votre compte à tout moment en nous contactant. Nous pouvons suspendre un compte en cas de violation des présentes conditions, après notification préalable sauf en cas d'urgence.</p>
+
+  <h2>9. Droit applicable</h2>
+  <p>Ces conditions sont régies par les lois de la province de Québec et les lois fédérales du Canada applicables.</p>
+
+  <h2>10. Contact</h2>
+  <p>Pour toute question : <a href="mailto:support@joinaster.app">support@joinaster.app</a></p>
+</div>
+
+<!-- FR: Témoins -->
+<div class="section" id="fr-cookies">
+  <h1>Politique d'utilisation des témoins</h1>
+  <p class="update-date">Dernière mise à jour : 25 juin 2026</p>
+
+  <div class="highlight"><p>Un témoin (ou cookie) est un petit fichier stocké par votre navigateur. Voici comment Aster les utilise.</p></div>
+
+  <h2>1. Application mobile</h2>
+  <p>L'application mobile Aster <strong>n'utilise pas de témoins</strong>. Les données de session sont stockées localement sur votre appareil de manière sécurisée et ne sont jamais partagées avec des tiers à des fins publicitaires.</p>
+
+  <h2>2. Pages web publiques</h2>
+  <p>Certaines pages web d'Aster (page de carte de fidélité, formulaire d'inscription à un programme) sont accessibles depuis un navigateur. Ces pages peuvent utiliser :</p>
+
+  <table>
+    <tr><th>Type</th><th>Utilisation</th><th>Durée</th></tr>
+    <tr><td>Session (technique)</td><td>Maintenir la connexion sécurisée pendant votre visite</td><td>Session uniquement</td></tr>
+    <tr><td>Tiers Google Wallet</td><td>Activer le bouton "Ajouter à Google Wallet" si vous choisissez de l'utiliser</td><td>Variable (Google)</td></tr>
+    <tr><td>Tiers Apple Wallet</td><td>Permettre le téléchargement du pass si vous choisissez de l'utiliser</td><td>Session uniquement</td></tr>
+  </table>
+
+  <h2>3. Pas de pistage publicitaire</h2>
+  <p>Aster n'utilise <strong>aucun</strong> témoin de pistage publicitaire, aucun outil d'analyse comportementale tiers (Google Analytics, Facebook Pixel, etc.), et ne partage aucune donnée de navigation à des fins commerciales.</p>
+
+  <h2>4. Contrôle des témoins</h2>
+  <p>Vous pouvez configurer votre navigateur pour refuser ou supprimer les témoins. Pour les navigateurs courants :</p>
+  <ul>
+    <li><a href="https://support.google.com/chrome/answer/95647" target="_blank">Google Chrome</a></li>
+    <li><a href="https://support.apple.com/fr-ca/guide/safari/sfri11471/mac" target="_blank">Safari</a></li>
+    <li><a href="https://support.mozilla.org/fr/kb/activer-desactiver-cookies" target="_blank">Mozilla Firefox</a></li>
+  </ul>
+  <p>Notez que bloquer certains témoins techniques peut affecter le fonctionnement des pages web d'Aster.</p>
+
+  <h2>5. Contact</h2>
+  <p><a href="mailto:support@joinaster.app">support@joinaster.app</a></p>
+</div>
+
+
+<!-- ==================== ENGLISH ==================== -->
+
+<!-- EN: Privacy -->
+<div class="section" id="en-privacy">
+  <h1>Privacy Policy</h1>
+  <p class="update-date">Last updated: June 25, 2026</p>
+
+  <div class="highlight"><p>Aster is a digital loyalty card management service. Your privacy matters to us. This policy clearly explains what data we collect, why, and how we protect it.</p></div>
+
+  <h2>1. Who we are</h2>
+  <p>Aster is a service operated by an individual operator. For any questions about your personal data, contact us at <a href="mailto:support@joinaster.app">support@joinaster.app</a>.</p>
+
+  <h2>2. Data we collect</h2>
+  <p><strong>Merchants (business account):</strong></p>
+  <ul>
+    <li>Business name, address and phone number</li>
+    <li>Email address and password (encrypted)</li>
+    <li>Business logo (hosted on Cloudinary)</li>
+  </ul>
+  <p><strong>Customers (card users):</strong></p>
+  <ul>
+    <li>First and last name</li>
+    <li>Phone number</li>
+    <li>Loyalty data (points, stamps, subscription status)</li>
+  </ul>
+  <p>We do <strong>not</strong> collect: payment information, precise location, device identifiers, or biometric data.</p>
+
+  <h2>3. Purpose of processing</h2>
+  <ul>
+    <li>Create and manage loyalty programs</li>
+    <li>Allow customers to track their points and rewards</li>
+    <li>Send transactional emails (registration confirmation, verification)</li>
+    <li>Generate passes for Apple Wallet and Google Wallet</li>
+    <li>Improve and secure the service</li>
+  </ul>
+
+  <h2>4. Data hosting and location</h2>
+  <div class="highlight"><p>In compliance with <strong>Quebec Law 25</strong>, your data is hosted in <strong>Canada</strong>:</p></div>
+  <table>
+    <tr><th>Provider</th><th>Role</th><th>Country</th></tr>
+    <tr><td>Fly.io (Toronto)</td><td>Application server hosting</td><td>🇨🇦 Canada</td></tr>
+    <tr><td>Supabase (Toronto)</td><td>Database</td><td>🇨🇦 Canada</td></tr>
+    <tr><td>Cloudinary</td><td>Logo storage</td><td>🇺🇸 United States</td></tr>
+    <tr><td>Resend Inc.</td><td>Transactional email delivery</td><td>🇺🇸 United States</td></tr>
+    <tr><td>Google LLC</td><td>Google Wallet (optional)</td><td>🇺🇸 United States</td></tr>
+    <tr><td>Apple Inc.</td><td>Apple Wallet (optional)</td><td>🇺🇸 United States</td></tr>
+  </table>
+  <p>Transfers outside Canada (Cloudinary, Resend, Wallet) are governed by appropriate contractual clauses and limited to strictly necessary data.</p>
+
+  <h2>5. Data retention</h2>
+  <p>Merchant data is retained as long as the account is active. Customer data is retained as long as their loyalty card is active. Upon request, any data can be deleted within 30 days.</p>
+
+  <h2>6. Your rights (Law 25 and PIPEDA)</h2>
+  <p>You have the right to:</p>
+  <ul>
+    <li><strong>Access</strong> your personal data</li>
+    <li><strong>Correct</strong> inaccurate information</li>
+    <li><strong>Delete</strong> your account and data</li>
+    <li><strong>Withdraw your consent</strong> at any time</li>
+    <li><strong>File a complaint</strong> with the Commission d'accès à l'information du Québec</li>
+  </ul>
+  <p>To exercise these rights, write to us at <a href="mailto:support@joinaster.app">support@joinaster.app</a>.</p>
+
+  <h2>7. Security</h2>
+  <p>Your data is protected by encryption in transit (HTTPS/TLS) and at rest. Passwords are irreversibly encrypted (bcrypt). We never access your passwords in plain text.</p>
+
+  <h2>8. Advertising and data sales</h2>
+  <p>Aster displays <strong>no advertising</strong> and <strong>never sells</strong> your data to third parties.</p>
+
+  <h2>9. Changes</h2>
+  <p>Any significant changes will be communicated by email to merchants. The update date at the top of this page indicates the current version.</p>
+
+  <h2>10. Contact</h2>
+  <p><a href="mailto:support@joinaster.app">support@joinaster.app</a></p>
+</div>
+
+<!-- EN: Terms -->
+<div class="section" id="en-terms">
+  <h1>Terms of Use</h1>
+  <p class="update-date">Last updated: June 25, 2026</p>
+
+  <div class="highlight"><p>By using Aster, you agree to these terms. They are written in plain language no unnecessary legal jargon.</p></div>
+
+  <h2>1. The service</h2>
+  <p>Aster is an application that allows merchants to create and manage digital loyalty programs, and their customers to accumulate and view their rewards through a digital card.</p>
+
+  <h2>2. Merchant accounts</h2>
+  <ul>
+    <li>You must provide accurate information when registering.</li>
+    <li>You are responsible for keeping your password confidential.</li>
+    <li>One account per business is allowed.</li>
+    <li>You are responsible for all actions taken from your account.</li>
+  </ul>
+
+  <h2>3. Customers (no account required)</h2>
+  <p>Customers do not need to create an account. By submitting their name and phone number to join a program, they agree that this information will be used solely for that loyalty program.</p>
+
+  <h2>4. Prohibited uses</h2>
+  <p>It is prohibited to:</p>
+  <ul>
+    <li>Use the service for fraudulent or illegal purposes</li>
+    <li>Attempt to access other users' data</li>
+    <li>Automate use of the service without written authorization</li>
+    <li>Post offensive, misleading content or content that violates third-party rights</li>
+    <li>Resell or redistribute the service</li>
+  </ul>
+
+  <h2>5. Intellectual property</h2>
+  <p>The Aster name, logo and design are the property of the service operator. Merchants retain ownership of their content (logos, program names).</p>
+
+  <h2>6. Service availability</h2>
+  <p>We do our best to keep the service available at all times, but we do not guarantee 100% uptime. Brief interruptions may occur for maintenance or technical reasons.</p>
+
+  <h2>7. Limitation of liability</h2>
+  <p>Aster cannot be held responsible for indirect or consequential losses related to the use or inability to use the service. Our total liability is limited to the amount paid for the service in the last 3 months.</p>
+
+  <h2>8. Termination</h2>
+  <p>You may close your account at any time by contacting us. We may suspend an account for violations of these terms, with prior notice except in emergencies.</p>
+
+  <h2>9. Governing law</h2>
+  <p>These terms are governed by the laws of the Province of Quebec and applicable federal laws of Canada.</p>
+
+  <h2>10. Contact</h2>
+  <p>For any questions: <a href="mailto:support@joinaster.app">support@joinaster.app</a></p>
+</div>
+
+<!-- EN: Cookies -->
+<div class="section" id="en-cookies">
+  <h1>Cookie Policy</h1>
+  <p class="update-date">Last updated: June 25, 2026</p>
+
+  <div class="highlight"><p>A cookie is a small file stored by your browser. Here is how Aster uses them.</p></div>
+
+  <h2>1. Mobile application</h2>
+  <p>The Aster mobile app does <strong>not use cookies</strong>. Session data is stored locally on your device in a secure manner and is never shared with third parties for advertising purposes.</p>
+
+  <h2>2. Public web pages</h2>
+  <p>Some Aster web pages (loyalty card page, program enrollment form) are accessible from a browser. These pages may use:</p>
+
+  <table>
+    <tr><th>Type</th><th>Purpose</th><th>Duration</th></tr>
+    <tr><td>Session (technical)</td><td>Maintain a secure connection during your visit</td><td>Session only</td></tr>
+    <tr><td>Third-party Google Wallet</td><td>Enable the "Add to Google Wallet" button if you choose to use it</td><td>Variable (Google)</td></tr>
+    <tr><td>Third-party Apple Wallet</td><td>Enable pass download if you choose to use it</td><td>Session only</td></tr>
+  </table>
+
+  <h2>3. No advertising tracking</h2>
+  <p>Aster uses <strong>no</strong> advertising tracking cookies, no third-party behavioral analytics tools (Google Analytics, Facebook Pixel, etc.), and shares no browsing data for commercial purposes.</p>
+
+  <h2>4. Managing cookies</h2>
+  <p>You can configure your browser to refuse or delete cookies. For common browsers:</p>
+  <ul>
+    <li><a href="https://support.google.com/chrome/answer/95647" target="_blank">Google Chrome</a></li>
+    <li><a href="https://support.apple.com/en-ca/guide/safari/sfri11471/mac" target="_blank">Safari</a></li>
+    <li><a href="https://support.mozilla.org/en-US/kb/enable-and-disable-cookies-website-preferences" target="_blank">Mozilla Firefox</a></li>
+  </ul>
+  <p>Note that blocking certain technical cookies may affect the functionality of Aster web pages.</p>
+
+  <h2>5. Contact</h2>
+  <p><a href="mailto:support@joinaster.app">support@joinaster.app</a></p>
+</div>
+
+</div><!-- /container -->
+
+<footer>© 2026 Aster <a href="mailto:support@joinaster.app">support@joinaster.app</a></footer>
+
+<script>
+var currentLang = 'fr';
+var currentTab = 'privacy';
+
+function setLang(lang) {
+  currentLang = lang;
+  document.querySelectorAll('.lang-btn').forEach(function(b) { b.classList.remove('active'); });
+  document.querySelector('.lang-btn[onclick="setLang(\'' + lang + '\')"]').classList.add('active');
+  document.getElementById('tabs-fr').style.display = lang === 'fr' ? 'flex' : 'none';
+  document.getElementById('tabs-en').style.display = lang === 'en' ? 'flex' : 'none';
+  showSection(lang, currentTab);
+}
+
+function setTab(tab, lang) {
+  currentTab = tab;
+  var tabs = document.querySelectorAll('#tabs-' + lang + ' .tab');
+  tabs.forEach(function(t) { t.classList.remove('active'); });
+  event.target.classList.add('active');
+  showSection(lang, tab);
+}
+
+function showSection(lang, tab) {
+  document.querySelectorAll('.section').forEach(function(s) { s.classList.remove('active'); });
+  var el = document.getElementById(lang + '-' + tab);
+  if (el) el.classList.add('active');
+}
+</script>
+</body>
+</html>

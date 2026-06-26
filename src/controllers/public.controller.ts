@@ -3,6 +3,7 @@ import prisma from '../config/database.js'
 import { genererNumeroSerie } from '../utils/numeroSerie.utils.js'
 import * as demandeService from '../services/demande.service.js'
 import { genererLienWallet } from '../services/wallet.service.js'
+import { genererPassApple } from '../services/apple-wallet.service.js'
 
 const BASE_URL = (): string => process.env.BASE_URL || `http://localhost:${process.env.PORT || 3000}`
 
@@ -238,10 +239,14 @@ export const pageCarte = async (req: Request, res: Response) => {
         .serie { font-size: 11px; color: #bbb; font-family: monospace; letter-spacing: 1px; margin-top: 16px; }
         .qr-label { font-size: 12px; color: #aaa; margin-top: 12px; margin-bottom: 4px; }
         #qr { margin: 4px auto 0; display: flex; justify-content: center; }
-        .wallet-btn { width: 100%; margin-top: 20px; padding: 14px 16px; background: #000; color: #fff;
+        .wallet-btn { width: 100%; margin-top: 12px; padding: 14px 16px; background: #000; color: #fff;
                       border: none; border-radius: 12px; font-size: 15px; font-weight: 600; cursor: pointer; }
         .wallet-btn:hover { background: #222; }
         .wallet-btn:disabled { background: #555; cursor: not-allowed; }
+        .apple-btn { width: 100%; margin-top: 12px; padding: 14px 16px; background: #000; color: #fff;
+                     border: none; border-radius: 12px; font-size: 15px; font-weight: 600; cursor: pointer;
+                     display: none; }
+        .apple-btn:hover { background: #222; }
         .wallet-msg { font-size: 13px; color: #E24B4A; margin-top: 10px; min-height: 18px; }
     `
 
@@ -257,7 +262,8 @@ export const pageCarte = async (req: Request, res: Response) => {
 <p class="serie">${escapeHtml(carte.numeroSerie)}</p>
 <p class="qr-label">Montrez ce code au commercant</p>
 <div id="qr"></div>
-<button class="wallet-btn" id="wallet-btn" onclick="ajouterWallet()">+ Ajouter a Google Wallet</button>
+<button class="wallet-btn" id="wallet-btn" onclick="ajouterGoogle()"> Ajouter a Google Wallet</button>
+<button class="apple-btn" id="apple-btn" onclick="ajouterApple()"> Ajouter a Apple Wallet</button>
 <p class="wallet-msg" id="wallet-msg"></p>
 </div>
 <p class="footer">Powered by Aster</p>
@@ -269,7 +275,13 @@ new QRCode(document.getElementById('qr'), {
     colorDark: '#111', colorLight: '#fff',
     correctLevel: QRCode.CorrectLevel.M
 });
-async function ajouterWallet() {
+
+// Afficher le bouton Apple Wallet seulement sur iOS
+if (/iPad|iPhone|iPod/.test(navigator.userAgent)) {
+    document.getElementById('apple-btn').style.display = 'block';
+}
+
+async function ajouterGoogle() {
     var btn = document.getElementById('wallet-btn');
     var msg = document.getElementById('wallet-msg');
     btn.disabled = true;
@@ -282,13 +294,25 @@ async function ajouterWallet() {
         } else {
             msg.textContent = (d.erreur && d.erreur.message) || 'Erreur inattendue.';
             btn.disabled = false;
-            btn.textContent = '+ Ajouter a Google Wallet';
+            btn.textContent = ' Ajouter a Google Wallet';
         }
     } catch (e) {
         msg.textContent = 'Impossible de generer le lien. Reessayez.';
         btn.disabled = false;
-        btn.textContent = '+ Ajouter a Google Wallet';
+        btn.textContent = ' Ajouter a Google Wallet';
     }
+}
+
+function ajouterApple() {
+    var btn = document.getElementById('apple-btn');
+    var msg = document.getElementById('wallet-msg');
+    btn.disabled = true;
+    btn.textContent = 'Chargement...';
+    window.location.href = '/api/public/cartes/${carteId}/wallet/apple';
+    setTimeout(function() {
+        btn.disabled = false;
+        btn.textContent = ' Ajouter a Apple Wallet';
+    }, 3000);
 }
 </script></body></html>`)
 }
@@ -308,6 +332,32 @@ export const lienWalletGoogle = async (req: Request, res: Response) => {
         res.json({ lienAjout: lien })
     } catch (e: any) {
         res.status(500).json({ erreur: { message: 'Erreur generation lien wallet' } })
+    }
+}
+
+export const passWalletApple = async (req: Request, res: Response) => {
+    try {
+        const { carteId } = req.params
+        const carte = await prisma.carte.findFirst({
+            where: { id: carteId, actif: true },
+            include: {
+                programme: { select: { id: true, nom: true, type: true, valeur: true } },
+                commercant: { select: { nomCommerce: true } },
+            },
+        })
+        if (!carte) return res.status(404).json({ erreur: { message: 'Carte introuvable' } })
+
+        const buffer = await genererPassApple(carte as any)
+
+        res.set({
+            'Content-Type': 'application/vnd.apple.pkpass',
+            'Content-Disposition': `attachment; filename="carte-${carte.numeroSerie}.pkpass"`,
+            'Content-Length': buffer.length,
+        })
+        res.send(buffer)
+    } catch (e: any) {
+        console.error('[apple-wallet]', e)
+        res.status(500).json({ erreur: { message: 'Erreur generation pass Apple Wallet' } })
     }
 }
 
